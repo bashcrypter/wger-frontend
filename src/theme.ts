@@ -30,21 +30,32 @@ const themeOptions: ThemeOptions = {
         fontFamily: fontFamilyLight,
     },
     palette: {
+        mode: 'dark',
         primary: {
-            main: '#2A4C7D',
+            main: '#d32f2f',
+            contrastText: '#ffffff',
         },
         secondary: {
-            main: '#e63946',
+            main: '#ff5252',
+            contrastText: '#0d0d0d',
+        },
+        background: {
+            default: '#121212',
+            paper: '#1e1e1e',
         },
         warning: {
-            main: '#cba328',
+            main: '#f2c94c',
         },
         info: {
-            main: '#457b9d',
+            main: '#ff8a80',
         },
         success: {
-            main: '#307916',
+            main: '#66bb6a',
         },
+        text: {
+            primary: '#f5f5f5',
+            secondary: '#ffb4b4',
+        }
     }
 };
 
