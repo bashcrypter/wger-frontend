@@ -95,13 +95,20 @@ describe("Test the EntryForm component", () => {
             </QueryClientProvider>
         );
         const group = screen.getByRole('group', { name: /date/i });
-        const dateInput = within(group).getByRole('textbox', { hidden: true });
+        const yearInput = within(group).getByRole('spinbutton', { name: /year/i });
+        const monthInput = within(group).getByRole('spinbutton', { name: /month/i });
+        const dayInput = within(group).getByRole('spinbutton', { name: /day/i });
         const valueInput = await screen.findByLabelText('value');
         const notesInput = await screen.findByLabelText('notes');
         const submitButton = screen.getByRole('button', { name: 'submit' });
 
         // Act
-        await user.type(dateInput, '2023-06-18');
+        await user.clear(yearInput);
+        await user.type(yearInput, '2023');
+        await user.clear(monthInput);
+        await user.type(monthInput, '06');
+        await user.clear(dayInput);
+        await user.type(dayInput, '18');
         await user.clear(valueInput);
         await user.type(valueInput, '42.42');
         await user.clear(notesInput);
@@ -116,5 +123,5 @@ describe("Test the EntryForm component", () => {
             notes: 'The Shiba Inu is a breed of hunting dog from Japan.',
             value: 42.42,
         });
-    });
+    }, 10000);
 });

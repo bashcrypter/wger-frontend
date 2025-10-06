@@ -11,10 +11,22 @@ export function isSameDay(date1: Date, date2: Date): boolean {
 }
 
 /*
- * Util function that converts a date to a YYYY-MM-DD string
+ * Util function that converts a date to a YYYY-MM-DD string without UTC shifting.
  */
 export function dateToYYYYMMDD(date: Date): string {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+/*
+ * Creates a Date from a YYYY-MM-DD string treating it as a local date.
+ */
+export function parseLocalDate(date: string): Date {
+    const [year, month, day] = date.split('-').map(Number);
+    return new Date(year!, (month! - 1), day!);
 }
 
 
@@ -92,12 +104,19 @@ export function HHMMToDateTime(time: string | null) {
  */
 export function calculatePastDate(filter: FilterType, currentDate: Date = new Date()): string | undefined {
 
+    // Normalize the working date to local midnight to avoid timezone drift when subtracting days.
+    const workingDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+    );
+
     // Dictionary for filters
     const filterMap: Record<FilterType, (() => void) | undefined> = {
-        lastWeek: () => currentDate.setDate(currentDate.getDate() - 7),
-        lastMonth: () => currentDate.setMonth(currentDate.getMonth() - 1),
-        lastHalfYear: () => currentDate.setMonth(currentDate.getMonth() - 6),
-        lastYear: () => currentDate.setFullYear(currentDate.getFullYear() - 1),
+        lastWeek: () => workingDate.setDate(workingDate.getDate() - 7),
+        lastMonth: () => workingDate.setMonth(workingDate.getMonth() - 1),
+        lastHalfYear: () => workingDate.setMonth(workingDate.getMonth() - 6),
+        lastYear: () => workingDate.setFullYear(workingDate.getFullYear() - 1),
         '': undefined
     };
 
@@ -109,5 +128,5 @@ export function calculatePastDate(filter: FilterType, currentDate: Date = new Da
         return undefined;
     }
 
-    return dateToYYYYMMDD(currentDate);
+    return dateToYYYYMMDD(workingDate);
 }

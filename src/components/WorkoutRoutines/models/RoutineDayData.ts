@@ -1,6 +1,7 @@
 import { Day } from "components/WorkoutRoutines/models/Day";
 import { SlotData, SlotDataAdapter } from "components/WorkoutRoutines/models/SlotData";
 import { Adapter } from "utils/Adapter";
+import { parseLocalDate } from "utils/date";
 
 export class RoutineDayData {
 
@@ -26,7 +27,7 @@ export class RoutineDayData {
 class RoutineDayDataAdapter implements Adapter<RoutineDayData> {
     fromJson = (item: any) => new RoutineDayData(
         item.iteration,
-        new Date(item.date),
+        parseLocalDate(item.date),
         item.label,
         item.day != null ? Day.fromJson(item.day) : null,
         item.slots.map((slot: any) => new SlotDataAdapter().fromJson(slot))

@@ -3,7 +3,7 @@ import { RoutineDayData } from "components/WorkoutRoutines/models/RoutineDayData
 import i18n from 'i18next';
 import { DateTime } from "luxon";
 import { Adapter } from "utils/Adapter";
-import { dateToYYYYMMDD, isSameDay } from "utils/date";
+import { dateToYYYYMMDD, isSameDay, parseLocalDate } from "utils/date";
 
 export const NAME_MIN_LENGTH = 3;
 export const NAME_MAX_LENGTH = 25;
@@ -196,8 +196,8 @@ class RoutineAdapter implements Adapter<Routine> {
             name: item.name,
             description: item.description,
             created: new Date(item.created),
-            start: new Date(item.start),
-            end: new Date(item.end),
+            start: item.start ? parseLocalDate(item.start) : undefined,
+            end: item.end ? parseLocalDate(item.end) : new Date(item.end),
             fitInWeek: item.fit_in_week,
             isTemplate: item.is_template,
             isPublic: item.is_public,

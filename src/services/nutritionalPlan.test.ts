@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NutritionalPlan } from "components/Nutrition/models/nutritionalPlan";
 import { getNutritionalPlansSparse } from "services/nutritionalPlan";
+import { parseLocalDate } from "utils/date";
 
 jest.mock("axios");
 
@@ -49,22 +50,23 @@ describe("Nutritional plan service tests", () => {
             new NutritionalPlan({
                 id: 72559,
                 creationDate: new Date('2023-05-26'),
-                start: new Date('2023-06-01'),
-                end: new Date('2023-06-30'),
+                start: parseLocalDate('2023-06-01'),
+                end: parseLocalDate('2023-06-30'),
                 description: 'first plan',
                 onlyLogging: true
             }),
             new NutritionalPlan({
                 id: 60131,
                 creationDate: new Date('2022-06-01'),
+                start: parseLocalDate('2022-06-01'),
                 description: '',
                 onlyLogging: false
             }),
             new NutritionalPlan({
                 id: 24752,
                 creationDate: new Date('2023-08-01'),
-                start: new Date('2023-08-01'),
-                end: new Date('2023-08-31'),
+                start: parseLocalDate('2023-08-01'),
+                end: parseLocalDate('2023-08-31'),
                 description: '',
                 onlyLogging: false
             }),

@@ -1,12 +1,13 @@
 import { NutritionalPlan } from "components/Nutrition/models/nutritionalPlan";
 import { TEST_MEAL_1, TEST_NUTRITIONAL_PLAN_1 } from "tests/nutritionTestdata";
+import { parseLocalDate } from "utils/date";
 
 jest.useFakeTimers();
 
 describe("Test the nutritional plan model", () => {
 
     beforeAll(() => {
-        jest.setSystemTime(new Date('2023-07-01'));
+        jest.setSystemTime(parseLocalDate('2023-07-01'));
     });
 
     afterAll(() => {
@@ -32,7 +33,7 @@ describe("Test the nutritional plan model", () => {
     test('correctly calculates the nutritional values logged on a specific date', async () => {
 
         // Act
-        const values = TEST_NUTRITIONAL_PLAN_1.loggedNutritionalValuesDate(new Date('2023-07-07'));
+        const values = TEST_NUTRITIONAL_PLAN_1.loggedNutritionalValuesDate(parseLocalDate('2023-07-07'));
 
         // Assert
         expect(values.energy).toBeCloseTo(48, 2);

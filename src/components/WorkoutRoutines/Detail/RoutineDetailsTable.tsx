@@ -42,24 +42,24 @@ const classes = {
     whiteBg: `${PREFIX}-whiteBg`
 };
 
-const StyledContainer = styled(Container)({
+const StyledContainer = styled(Container)(({ theme }) => ({
     [`& .${classes.stickyColumn}`]: {
         position: 'sticky',
         left: 0,
-        // background: 'white',
+        background: theme.palette.background.paper,
         zIndex: 1,
     },
     [`& .${classes.stickyHeader}`]: {
         position: 'sticky',
         top: 0,
         zIndex: 2,
-        background: 'white',
+        background: theme.palette.background.default,
     },
 
     [`& .${classes.whiteBg}`]: {
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.background.paper,
     }
-});
+}));
 
 
 export const RoutineDetailsTable = () => {
@@ -208,7 +208,7 @@ export const RoutineTable = (props: {
         return <TableRow>
             <TableCell className={classes.stickyColumn} sx={{
                 minWidth: 150,
-                backgroundColor: "white",
+                backgroundColor: theme.palette.background.paper,
                 borderBottomWidth: showLogs ? 0 : null
             }}>{slotEntry.exercise?.getTranslation(language).name}</TableCell>
             {iterations.map((iteration) => {
@@ -264,7 +264,7 @@ export const RoutineTable = (props: {
 
     function getTableRowLogged(slotEntry: SlotEntry, day: Day) {
         return <TableRow>
-            <TableCell sx={{ verticalAlign: "top", backgroundColor: "white" }} className={classes.stickyColumn}>
+            <TableCell sx={{ verticalAlign: "top", backgroundColor: theme.palette.background.paper }} className={classes.stickyColumn}>
                 <small>{t('nutrition.logged')}</small>
             </TableCell>
             {iterations.map((iteration) => {
@@ -368,4 +368,3 @@ export const RoutineTable = (props: {
         </StyledContainer>
     );
 };
-

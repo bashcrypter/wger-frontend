@@ -4,6 +4,7 @@ import { Exercise } from "components/Exercises/models/exercise";
 import { RepetitionUnit } from "components/WorkoutRoutines/models/RepetitionUnit";
 import { WeightUnit } from "components/WorkoutRoutines/models/WeightUnit";
 import { Adapter } from "utils/Adapter";
+import { parseLocalDate } from "utils/date";
 
 export interface LogEntryForm {
     exercise: Exercise | null;
@@ -75,7 +76,7 @@ export class WorkoutLog {
         restTimeTarget?: number | null
     }) {
         this.id = data.id;
-        this.date = typeof data.date === 'string' ? new Date(data.date) : data.date;
+        this.date = typeof data.date === 'string' ? parseLocalDate(data.date) : data.date;
         this.iteration = data.iteration;
         this.slotEntryId = data.slotEntryId;
         this.sessionId = data.sessionId || null;

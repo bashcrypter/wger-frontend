@@ -6,6 +6,7 @@ import {
     testMuscleRectusAbdominis
 } from "tests/exerciseTestdata";
 import { testRoutine1, testRoutineDayData1 } from "tests/workoutRoutinesTestData";
+import { parseLocalDate } from "utils/date";
 
 describe('Routine model tests', () => {
 
@@ -78,8 +79,8 @@ describe('Routine model tests', () => {
     test('correctly calculates the iteration for a date', () => {
 
         // Assert
-        expect(routine.getIteration(new Date('2024-01-01'))).toEqual(null);
-        expect(routine.getIteration(new Date('2024-05-05'))).toEqual(1);
+        expect(routine.getIteration(parseLocalDate('2024-01-01'))).toEqual(null);
+        expect(routine.getIteration(parseLocalDate('2024-05-05'))).toEqual(1);
     });
 
     test('correctly returns the DayData for an iteration', () => {

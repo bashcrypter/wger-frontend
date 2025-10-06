@@ -166,7 +166,10 @@ export const DayDetailsCard = (props: { dayData: RoutineDayData, routineId: numb
     return (
         <Card sx={{ minWidth: 275 }}>
             <CardHeader
-                sx={{ bgcolor: theme.palette.grey.A200 }}
+                sx={{
+                    bgcolor: theme.palette.action.hover,
+                    borderBottom: `1px solid ${theme.palette.divider}`,
+                }}
                 action={props.dayData.day === null || props.dayData.day.isRest || readOnly
                     ? null
                     : <Tooltip title={t('routines.addWeightLog')}>
