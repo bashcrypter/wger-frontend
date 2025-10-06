@@ -7,6 +7,7 @@ import { LoggedPlannedNutritionalValuesTable } from "components/Nutrition/widget
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { parseLocalDate } from "utils/date";
 
 
 export const NutritionDiaryOverview = () => {
@@ -18,7 +19,7 @@ export const NutritionDiaryOverview = () => {
         return <p>Please pass an integer as the nutritional plan id.</p>;
     }
 
-    const date = new Date(params.date!);
+    const date = parseLocalDate(params.date!);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const planQuery = useFetchNutritionalPlanDateQuery(planId, params.date!);
 

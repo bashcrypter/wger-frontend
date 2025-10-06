@@ -1,5 +1,6 @@
 import axios from "axios";
 import { WorkoutLog } from "components/WorkoutRoutines/models/WorkoutLog";
+import { parseLocalDate } from "utils/date";
 import { getExercise } from "services";
 import { getRoutineLogs } from "services/workoutLogs";
 import { getRoutineRepUnits, getRoutineWeightUnits } from "services/workoutUnits";
@@ -38,7 +39,7 @@ describe("workout logs service tests", () => {
             new WorkoutLog({
                 id: 2,
                 routineId: 1,
-                date: new Date("2023-05-10"),
+                date: parseLocalDate('2023-05-10'),
                 iteration: 1,
                 exerciseId: 100,
                 slotEntryId: 2,
@@ -60,7 +61,7 @@ describe("workout logs service tests", () => {
             new WorkoutLog({
                 id: 1,
                 routineId: 1,
-                date: new Date("2023-05-13"),
+                date: parseLocalDate('2023-05-13'),
                 iteration: 1,
                 exerciseId: 100,
                 slotEntryId: 2,
@@ -99,7 +100,7 @@ describe("workout logs service tests", () => {
             new WorkoutLog({
                 id: 2,
                 routineId: 1,
-                date: new Date("2023-05-10"),
+                date: parseLocalDate('2023-05-10'),
                 iteration: 1,
                 exercise: testExerciseSquats,
                 exerciseId: 100,
@@ -123,7 +124,7 @@ describe("workout logs service tests", () => {
             new WorkoutLog({
                 id: 1,
                 routineId: 1,
-                date: new Date("2023-05-13"),
+                date: parseLocalDate('2023-05-13'),
                 iteration: 1,
                 slotEntryId: 2,
                 exercise: testExerciseSquats,

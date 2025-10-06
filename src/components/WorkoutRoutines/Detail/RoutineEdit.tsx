@@ -63,7 +63,15 @@ export const RoutineEdit = () => {
                 />
             </Grid>
             {selectedDayIndex !== null && <>
-                <Grid size={12} sx={{ backgroundColor: theme.palette.grey[100], padding: 1 }}>
+                <Grid
+                    size={12}
+                    sx={{
+                        backgroundColor: theme.palette.background.paper,
+                        borderRadius: 1,
+                        border: `1px solid ${theme.palette.divider}`,
+                        padding: 1,
+                    }}
+                >
                     <Box>
                         <DayDetails
                             day={routine.days[selectedDayIndex]}
@@ -91,5 +99,4 @@ export const RoutineEdit = () => {
         </Stack>}
     </WgerContainerFullWidth>;
 };
-
 

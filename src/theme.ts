@@ -37,7 +37,7 @@ const themeOptions: ThemeOptions = {
         },
         secondary: {
             main: '#ff5252',
-            contrastText: '#0d0d0d',
+            contrastText: '#f5f5f5',
         },
         background: {
             default: '#121212',
@@ -51,6 +51,10 @@ const themeOptions: ThemeOptions = {
         },
         success: {
             main: '#66bb6a',
+        },
+        error: {
+            main: '#f06262',
+            contrastText: '#f5f5f5',
         },
         text: {
             primary: '#f5f5f5',

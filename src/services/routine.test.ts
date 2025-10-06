@@ -3,6 +3,7 @@ import { Day } from "components/WorkoutRoutines/models/Day";
 import { Routine } from "components/WorkoutRoutines/models/Routine";
 import { SetConfigData } from "components/WorkoutRoutines/models/SetConfigData";
 import { WorkoutLog } from "components/WorkoutRoutines/models/WorkoutLog";
+import { parseLocalDate } from "utils/date";
 import { getRoutinesShallow } from "services";
 import { getRoutineDayDataAllIterations } from "services/routine";
 import { getRoutineLogs } from "services/workoutLogs";
@@ -44,8 +45,8 @@ describe("workout routine service tests", () => {
                 name: 'My first routine!',
                 description: 'Well rounded full body routine',
                 created: new Date("2022-01-01T12:34:30+01:00"),
-                start: new Date("2024-03-01T00:00:00.000Z"),
-                end: new Date("2024-04-30T00:00:00.000Z"),
+                start: parseLocalDate('2024-03-01'),
+                end: parseLocalDate('2024-04-30'),
                 fitInWeek: false,
             }),
             new Routine({
@@ -53,8 +54,8 @@ describe("workout routine service tests", () => {
                 name: 'Beach body',
                 description: 'Train only arms and chest, no legs!!!',
                 created: new Date("2023-01-01T17:22:22+02:00"),
-                start: new Date("2024-03-01T00:00:00.000Z"),
-                end: new Date("2024-04-30T00:00:00.000Z"),
+                start: parseLocalDate('2024-03-01'),
+                end: parseLocalDate('2024-04-30'),
                 fitInWeek: false,
             }),
         ]);
@@ -79,7 +80,7 @@ describe("workout routine service tests", () => {
             new WorkoutLog({
                 id: 2,
                 routineId: 1,
-                date: new Date("2023-05-10"),
+                date: parseLocalDate('2023-05-10'),
                 iteration: 1,
                 exerciseId: 100,
                 slotEntryId: 2,
@@ -96,7 +97,7 @@ describe("workout routine service tests", () => {
             new WorkoutLog({
                 id: 1,
                 routineId: 1,
-                date: new Date("2023-05-13"),
+                date: parseLocalDate('2023-05-13'),
                 iteration: 1,
                 exerciseId: 100,
                 slotEntryId: 2,
@@ -124,7 +125,7 @@ describe("workout routine service tests", () => {
         expect(axios.get).toHaveBeenCalledTimes(1);
 
         expect(result[0].iteration).toStrictEqual(42);
-        expect(result[0].date).toStrictEqual(new Date('2024-04-01'));
+        expect(result[0].date).toStrictEqual(parseLocalDate('2024-04-01'));
         expect(result[0].label).toStrictEqual('first label');
         expect(result[0].day).toStrictEqual(
             new Day({

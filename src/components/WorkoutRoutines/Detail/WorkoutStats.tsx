@@ -148,13 +148,13 @@ export const WorkoutStats = () => {
                         {selectedValueSubType !== StatSubType.Mesocycle && <TableRow>
                             <TableCell sx={{
                                 fontWeight: 'bold',
-                                backgroundColor: theme.palette.grey.A200
+                                backgroundColor: theme.palette.action.hover
                             }}>{t("total")}</TableCell>
                             {statsData.headers.map(header => (
                                 <TableCell key={header}
                                            sx={{
                                                fontWeight: 'bold',
-                                               backgroundColor: theme.palette.grey.A200,
+                                               backgroundColor: theme.palette.action.hover,
                                                textAlign: 'right',
                                            }}>
                                     {statsData.totals[header?.toString()]?.toFixed(selectedValueType === StatType.Intensity ? 2 : 0)}
@@ -241,6 +241,5 @@ export const WorkoutStats = () => {
         </WgerContainerFullWidth>
     );
 };
-
 
 

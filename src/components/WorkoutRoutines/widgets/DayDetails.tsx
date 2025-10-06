@@ -54,18 +54,22 @@ export const DayDragAndDropGrid = (props: {
 }) => {
 
     const { t } = useTranslation();
+    const theme = useTheme();
 
     const routineQuery = useRoutineDetailQuery(props.routineId);
     const editDayOrderQuery = useEditDayOrderQuery(props.routineId);
     const addDayQuery = useAddDayQuery(props.routineId);
 
     const getListStyle = (isDraggingOver: boolean) => ({
-        background: isDraggingOver ? "lightblue" : undefined,
+        background: isDraggingOver ? theme.palette.action.hover : undefined,
+        borderRadius: theme.shape.borderRadius,
     });
 
     const getItemStyle = (isDragging: boolean, draggableStyle: DraggableStyle) => ({
-        backgroundColor: "white",
-        margin: 4,
+        backgroundColor: theme.palette.background.paper,
+        border: `1px solid ${isDragging ? theme.palette.secondary.main : theme.palette.divider}`,
+        borderRadius: theme.shape.borderRadius,
+        margin: theme.spacing(0.5),
 
         ...draggableStyle,
         opacity: 1,
@@ -263,12 +267,14 @@ export const DayDetails = (props: {
     };
 
     const getListStyle = (isDraggingOver: boolean) => ({
-        background: isDraggingOver ? "lightblue" : undefined,
+        background: isDraggingOver ? theme.palette.action.hover : undefined,
+        borderRadius: theme.shape.borderRadius,
     });
 
     const getItemStyle = (isDragging: boolean, draggableStyle: DraggableStyle) => ({
-        border: isDragging ? `1px solid ${theme.palette.grey[900]}` : `1px solid ${theme.palette.grey[300]}`,
-        backgroundColor: "white",
+        border: `1px solid ${isDragging ? theme.palette.secondary.main : theme.palette.divider}`,
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: theme.shape.borderRadius,
         marginBottom: grid,
 
         ...draggableStyle
@@ -314,7 +320,7 @@ export const DayDetails = (props: {
                                     >
                                         <Grid
                                             sx={{
-                                                backgroundColor: theme.palette.common.white /*theme.palette.grey[200]*/,
+                                                backgroundColor: theme.palette.background.default,
                                             }}
                                             size={12}>
                                             <Grid container justifyContent="space-between" alignItems="center">
@@ -437,5 +443,4 @@ export const DayDetails = (props: {
         </Button>}
     </>);
 };
-
 

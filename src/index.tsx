@@ -1,5 +1,6 @@
 import createCache from '@emotion/cache';
 import { CacheProvider } from "@emotion/react";
+import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -18,6 +19,12 @@ import App from './App';
 import './i18n';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+
+const applyHostSurface = (element: HTMLElement) => {
+    element.style.backgroundColor = theme.palette.background.default ?? '#121212';
+    element.style.color = theme.palette.text.primary ?? '#f5f5f5';
+};
 
 
 const queryClient = new QueryClient({
@@ -43,8 +50,12 @@ const renderComponentShadowDom = (divId: string) => {
         return;
     }
 
+    applyHostSurface(rootElement);
+
     const shadow = rootElement.attachShadow({ mode: 'open' });
     const shadowRoot = document.createElement('div');
+    const shadowTheme = makeTheme(shadowRoot);
+    const baseStyles = document.createElement('style');
     const styleElement = document.createElement('style');
 
     const djangoReactStyle = document.getElementById('react-css');
@@ -56,6 +67,21 @@ const renderComponentShadowDom = (divId: string) => {
         shadow.appendChild(djangoReactStyle);
     }
 
+    shadowRoot.style.backgroundColor = shadowTheme.palette.background.default ?? '#121212';
+    shadowRoot.style.color = shadowTheme.palette.text.primary ?? '#f5f5f5';
+    shadowRoot.style.display = 'block';
+    shadowRoot.style.minHeight = '100%';
+
+    baseStyles.textContent = `
+        :host {
+            color: ${shadowTheme.palette.text.primary ?? '#f5f5f5'};
+        }
+        a {
+            color: inherit;
+        }
+    `;
+
+    shadow.appendChild(baseStyles);
     shadow.appendChild(shadowRoot);
     shadow.appendChild(styleElement);
 
@@ -71,7 +97,8 @@ const renderComponentShadowDom = (divId: string) => {
         <CacheProvider value={cache}>
             <Suspense fallback={<LoadingWidget />}>
                 <Router>
-                    <ThemeProvider theme={makeTheme(shadowRoot)}>
+                    <ThemeProvider theme={shadowTheme}>
+                        <CssBaseline />
                         <QueryClientProvider client={queryClient}>
                             <WgerRoutes />
                         </QueryClientProvider>
@@ -84,12 +111,14 @@ const renderComponentShadowDom = (divId: string) => {
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
+    applyHostSurface(rootElement);
     const root = createRoot(rootElement);
     root.render(
         <React.StrictMode>
             <Suspense fallback={<LoadingWidget />}>
                 <Router>
                     <ThemeProvider theme={theme}>
+                        <CssBaseline />
                         <QueryClientProvider client={queryClient}>
                             <App />
                             <ReactQueryDevtools />
@@ -104,11 +133,13 @@ if (rootElement) {
 
 const rootNoShadowDom = document.getElementById("react-page-no-shadow-dom");
 if (rootNoShadowDom) {
+    applyHostSurface(rootNoShadowDom);
     const root = createRoot(rootNoShadowDom);
     root.render(
         <Suspense fallback={<LoadingWidget />}>
             <Router>
                 <ThemeProvider theme={theme}>
+                    <CssBaseline />
                     <QueryClientProvider client={queryClient}>
                         <WgerRoutes />
                     </QueryClientProvider>
@@ -125,10 +156,12 @@ renderComponentShadowDom('react-page');
  */
 const weightDashboard = document.getElementById("react-weight-dashboard");
 if (weightDashboard) {
+    applyHostSurface(weightDashboard);
     const root = createRoot(weightDashboard);
     root.render(
         <Suspense fallback={<LoadingWidget />}>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <QueryClientProvider client={queryClient}>
                     <WeightCard />
                 </QueryClientProvider>
@@ -139,10 +172,12 @@ if (weightDashboard) {
 
 const nutritionDashboard = document.getElementById('react-nutrition-dashboard');
 if (nutritionDashboard) {
+    applyHostSurface(nutritionDashboard);
     const root = createRoot(nutritionDashboard);
     root.render(
         <Suspense fallback={<LoadingWidget />}>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <QueryClientProvider client={queryClient}>
                     <NutritionCard />
                 </QueryClientProvider>
@@ -153,10 +188,12 @@ if (nutritionDashboard) {
 
 const routineDashboard = document.getElementById('react-routine-dashboard');
 if (routineDashboard) {
+    applyHostSurface(routineDashboard);
     const root = createRoot(routineDashboard);
     root.render(
         <Suspense fallback={<LoadingWidget />}>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <QueryClientProvider client={queryClient}>
                     <RoutineCard />
                 </QueryClientProvider>

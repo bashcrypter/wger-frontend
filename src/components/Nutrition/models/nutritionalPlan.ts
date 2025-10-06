@@ -3,7 +3,7 @@ import { DiaryEntry } from "components/Nutrition/models/diaryEntry";
 import { Meal } from "components/Nutrition/models/meal";
 import { ApiNutritionalPlanType } from "types";
 import { Adapter } from "utils/Adapter";
-import { dateToYYYYMMDD, isSameDay } from "utils/date";
+import { dateToYYYYMMDD, isSameDay, parseLocalDate } from "utils/date";
 
 /* eslint-disable camelcase */
 
@@ -232,8 +232,8 @@ export class NutritionalPlanAdapter implements Adapter<NutritionalPlan> {
         return new NutritionalPlan({
             id: item.id,
             creationDate: new Date(item.creation_date),
-            start: new Date(item.start),
-            end: item.end !== null ? new Date(item.end) : null,
+            start: parseLocalDate(item.start),
+            end: item.end !== null ? parseLocalDate(item.end) : null,
             description: item.description,
             onlyLogging: item.only_logging,
             goalEnergy: item.goal_energy,
